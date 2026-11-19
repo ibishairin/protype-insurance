@@ -1,8 +1,8 @@
-"""Demo plan catalog API for the HKS Insurance Advisory portal prototype."""
-from fastapi import FastAPI, Query
+"""Illustrative cross-category insurance catalog for the HKS portal prototype."""
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI(title="HKS Insurance Advisory Plan Discovery API", version="1.0.0")
+app = FastAPI(title="HKS Insurance Advisory Plan Discovery API", version="1.1.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
@@ -12,18 +12,18 @@ app.add_middleware(
 )
 
 PRODUCTS = [
-    {"id": "young-star", "name": "Young Star", "tagline": "A head start on a healthier future.", "category": "Young adults", "price": 612, "cover": 1_000_000, "cover_label": "₹10 lakh", "highlight": "Built for your next chapter", "features": ["Automatic restoration of cover", "Wellness rewards", "No claim bonus"], "accent": "blue", "badge": "POPULAR"},
-    {"id": "family-health", "name": "Family Health Optima", "tagline": "One plan that looks after everyone.", "category": "Families", "price": 984, "cover": 1_500_000, "cover_label": "₹15 lakh", "highlight": "Made for the whole family", "features": ["Shared family cover", "Automatic restoration", "Annual health check-up"], "accent": "teal", "badge": "FAMILY PICK"},
-    {"id": "red-carpet", "name": "Senior Citizens Red Carpet", "tagline": "Thoughtful cover for your golden years.", "category": "Senior care", "price": 1280, "cover": 1_000_000, "cover_label": "₹10 lakh", "highlight": "Care that grows with you", "features": ["Designed for seniors", "Hospitalisation cover", "Optional co-pay choices"], "accent": "purple", "badge": "SENIOR CARE"},
-    {"id": "comprehensive", "name": "Comprehensive Health", "tagline": "Everyday cover with room to grow.", "category": "Individuals", "price": 758, "cover": 2_000_000, "cover_label": "₹20 lakh", "highlight": "More cover, more confidence", "features": ["In-patient hospitalisation", "Day-care procedures", "Recharge benefit"], "accent": "gold", "badge": "WIDE COVER"},
-    {"id": "assure", "name": "Star Assure", "tagline": "Flexible protection for changing needs.", "category": "Families", "price": 1125, "cover": 2_500_000, "cover_label": "₹25 lakh", "highlight": "Flexible family protection", "features": ["Multiple cover options", "Restore benefit", "Wellness services"], "accent": "coral", "badge": "FLEXIBLE"},
-    {"id": "young-star-neo", "name": "Young Star Neo", "tagline": "More health. More dreams. A brighter tomorrow.", "category": "Young adults", "price": 699, "cover": 1_500_000, "cover_label": "₹15 lakh", "highlight": "Designed for tomorrow’s achievers", "features": ["Freeze your age option", "Future Shield benefit", "Star THRIVE wellness"], "accent": "blue", "badge": "NEW GENERATION"},
+    {"id": "young-star", "name": "Young Star Health", "tagline": "A head start on a healthier future.", "category": "Health", "price": 612, "cover": 1_000_000, "cover_label": "₹10 lakh", "coverage_label": "Health cover up to", "features": ["Hospitalisation protection", "Wellness services", "Restoration options"], "accent": "blue", "badge": "POPULAR"},
+    {"id": "family-health", "name": "Family Health Cover", "tagline": "One plan to explore for the whole family.", "category": "Health", "price": 984, "cover": 1_500_000, "cover_label": "₹15 lakh", "coverage_label": "Health cover up to", "features": ["Cover for family members", "Hospitalisation protection", "Preventive care options"], "accent": "teal", "badge": "FAMILY PICK"},
+    {"id": "life-secure", "name": "Life Secure", "tagline": "Explore a financial safety net for loved ones.", "category": "Life", "price": 540, "cover": 5_000_000, "cover_label": "₹50 lakh", "coverage_label": "Life cover up to", "features": ["Life cover options", "Flexible policy terms", "Add-on choices available"], "accent": "purple", "badge": "LIFE COVER"},
+    {"id": "motor-protect", "name": "Motor Protect", "tagline": "Cover options for the journeys you take.", "category": "Motor", "price": 790, "cover": 1_000_000, "cover_label": "₹10 lakh", "coverage_label": "Vehicle cover up to", "features": ["Own-damage cover options", "Third-party cover options", "Roadside assistance options"], "accent": "gold", "badge": "ON THE ROAD"},
+    {"id": "travel-secure", "name": "Travel Secure", "tagline": "Explore protection for trips near and far.", "category": "Travel", "price": 320, "cover": 5_000_000, "cover_label": "₹50 lakh", "coverage_label": "Trip cover up to", "features": ["Emergency medical cover options", "Trip disruption options", "Baggage protection options"], "accent": "coral", "badge": "TRAVEL COVER"},
+    {"id": "home-protect", "name": "Home Protect", "tagline": "Cover options for the place you call home.", "category": "Home", "price": 460, "cover": 7_500_000, "cover_label": "₹75 lakh", "coverage_label": "Home cover up to", "features": ["Structure protection options", "Contents cover options", "Natural event cover options"], "accent": "blue", "badge": "HOME COVER"},
 ]
 
 
 @app.get("/api/health")
 def health():
-    return {"status": "ok", "service": "star-health-plan-catalog"}
+    return {"status": "ok", "service": "hks-insurance-catalog"}
 
 
 @app.get("/api/categories")
@@ -37,7 +37,7 @@ def products(
     q: str | None = Query(default=None, min_length=1),
     sort: str = Query(default="recommended", pattern="^(recommended|price-low|cover-high)$"),
 ):
-    """Browse and filter the illustrative insurance plan catalog."""
+    """Browse and filter the illustrative multi-category catalog."""
     results = PRODUCTS
     if category and category != "All plans":
         results = [item for item in results if item["category"].lower() == category.lower()]
@@ -56,5 +56,4 @@ def product_detail(product_id: str):
     for item in PRODUCTS:
         if item["id"] == product_id:
             return item
-    from fastapi import HTTPException
     raise HTTPException(status_code=404, detail="Plan not found")

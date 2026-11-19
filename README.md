@@ -1,6 +1,6 @@
-# HKS Insurance Advisory plan discovery portal prototype
+# HKS Insurance Advisory insurance discovery portal prototype
 
-A responsive React and FastAPI prototype for people exploring health insurance options with HKS Insurance Advisory. It is a public plan discovery experience, not a policyholder account or administration system.
+A responsive React and FastAPI prototype for people exploring insurance options across health, life, motor, travel, and home categories with HKS Insurance Advisory. It is a public plan discovery experience, not a policyholder account or administration system.
 
 ## Frontend
 
@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Open the Vite URL (usually `http://localhost:5173`). Visitors can browse plans by audience, search plan names and benefits, sort by starting premium or cover, open plan details, shortlist plans, compare up to three options, and open a callback enquiry popup.
+Open the Vite URL (usually `http://localhost:5173`). Visitors can browse plans by insurance type, search plan names and benefits, sort by starting premium or cover, open plan details, shortlist plans, compare up to three options, and open a callback enquiry popup.
 
 ## API
 
