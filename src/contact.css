@@ -1,0 +1,107 @@
+.lead-form {
+  display: grid;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.lead-form label {
+  display: grid;
+  gap: 6px;
+  color: #637a8e;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.lead-form label > span {
+  display: inline;
+  color: #a1acb6;
+  font-weight: 400;
+}
+
+.lead-form input:not([type="checkbox"], [type="number"]),
+.lead-form input[type="number"],
+.lead-form select {
+  width: 100%;
+  height: 37px;
+  min-width: 0;
+  border: 1px solid #e0e8ed;
+  border-radius: 6px;
+  padding: 0 9px;
+  background: #fff;
+  color: #4b637b;
+  outline: 0;
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.lead-form input:focus,
+.lead-form select:focus {
+  border-color: #87b5c5;
+}
+
+.lead-form input::placeholder {
+  color: #aab5be;
+}
+
+.lead-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+}
+
+.lead-form .consent-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  color: #8191a0;
+  font-size: 8px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.consent-row input {
+  margin: 1px 0 0;
+  accent-color: #1c7890;
+  flex: 0 0 auto;
+}
+
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.social-links a {
+  width: 29px;
+  height: 29px;
+  display: grid;
+  place-items: center;
+  color: #58738a;
+  border: 1px solid #e8edf0;
+  border-radius: 50%;
+  transition: background .15s, color .15s, transform .15s;
+}
+
+.social-links a:hover {
+  color: #176b89;
+  background: #f1f8f8;
+  transform: translateY(-1px);
+}
+
+.social-links a[aria-label="WhatsApp"] {
+  color: #29966e;
+}
+
+.social-links a[aria-label="Instagram"] {
+  color: #aa5b83;
+}
+
+.social-links a[aria-label="Facebook"] {
+  color: #3c68a1;
+}
+
+@media (max-width: 430px) {
+  .lead-form-row {
+    grid-template-columns: 1fr;
+  }
+}
